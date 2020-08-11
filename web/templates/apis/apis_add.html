@@ -1,0 +1,72 @@
+{% extends 'manage/base_manage.html' %}
+{% load static %}
+{% block title %}添加单一接口用例{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/apis/apis_add.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div id="test_content_apis">
+            <h3 id="add_test_name">添加接口用例</h3>
+            <div id="title_apis">
+                <form id="product_input" method="post" action="{% url 'atp:apis_add' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_name_input">产品：</label>
+                        <br><br>
+                        <select class="form-control" name="dropdown">
+                            {% for pro_name in pro_names %}
+                                <option value="{{ pro_name.pk }}">
+                                    {{ pro_name.product_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_des_input">接口用例名称：</label>
+                        <br><br>
+                        <input name="api_name" type="text" class="form-control" id="p_des_input"
+                               placeholder="输入接口用例名称" required="required">
+                        <p style="color: red">{{ msg_api_name }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_er_input">Url地址：</label>
+                        <br><br>
+                        <input name="api_url" type="text" class="form-control" id="p_er_input" placeholder="输入Url地址">
+                    </div>
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_er_input">请求参数和值：</label>
+                        <br><br>
+                        <input name="api_param_value" type="text" class="form-control" id="p_er_input"
+                               placeholder="输入请求参数和值">
+                    </div>
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_er_input">请求方法：</label>
+                        <br><br>
+                        <select class="form-control" name="method_check">
+                            <option value="get">get</option>
+                            <option value="post">post</option>
+                        </select>
+                        <p style="color: red">{{ msg_api_method }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_er_input">预期结果：</label>
+                        <br><br>
+                        <input name="api_result" type="text" class="form-control" placeholder="输入预期结果">
+                    </div>
+                    <div class="form-group">
+                        <label id='product_name_distance' for="p_er_input">测试结果：</label>
+                        <br><br>
+                        <select class="form-control" name="api_status">
+                            <option value="1">True</option>
+                            <option value="0">False</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">保存</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

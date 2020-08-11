@@ -1,0 +1,34 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block title %}登录{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/account/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content_index">
+        <div class="input_group">
+            <h3 style="text-align: center">用户登录</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Username">用户名</label>
+                    <input name="username" type="text" class="form-control" id="Username" placeholder="用户名" required="required">
+                    <span style="color: red">{{ username_error }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="Password">密码</label>
+                    <input name="password" type="password" class="form-control" id="Password" placeholder="密码" required="required">
+                </div>
+
+                <div class="btn_">
+                    <button type="submit" class="btn btn-primary">登 录</button>
+                    <a href="{% url 'atp:register' %}">注 册</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
