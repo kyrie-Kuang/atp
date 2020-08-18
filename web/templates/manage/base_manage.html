@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<!-- 导航栏 -->
 <div class="top">
     <a id="font_title" href="{% url 'atp:home' %}">自动化测试平台</a>
     {% if request.atp.user %}
@@ -19,17 +20,16 @@
     {% endif %}
     <a id="logout" href="{% url 'atp:logout' %}">退出</a>
 </div>
-
+<!-- 侧边栏 -->
 <div class="sidebar">
-
     <ul class="nav">
         <li><a class='glyphicon glyphicon-flag' id="sidebar_name" href="{% url 'atp:product_manage' %}"> 产品中心</a></li>
         <li><a class="glyphicon glyphicon-comment" id="sidebar_name" href="{% url 'atp:apis_manage' %}"> 用例管理</a></li>
         <li><a class="glyphicon glyphicon-leaf" id="sidebar_name" href="#"> 定时任务&nbsp
             &nbsp&nbsp(Celery)</a></li>
-        <li><a class="glyphicon glyphicon-fire" id="sidebar_name" href=""> 持续集成&nbsp
+        <li><a class="glyphicon glyphicon-fire" id="sidebar_name" href="{% url 'atp:jenkins_manage' %}"> 持续集成&nbsp
             &nbsp&nbsp(Jenkins)</a></li>
-        <li><a class="glyphicon glyphicon-eye-open" id="sidebar_name" href=""> Bug管理</a></li>
+        <li><a class="glyphicon glyphicon-eye-open" id="sidebar_name" href="{% url 'atp:bug_manage' %}"> Bug管理</a></li>
         <li><a class="glyphicon glyphicon-folder-open" id="sidebar_name" href=""> 测试报告</a>
         </li>
         <li><a class="glyphicon glyphicon-tasks" id="sidebar_name" href=""> 性能测试&nbsp
@@ -37,11 +37,8 @@
         <li><a class="glyphicon glyphicon-cog" id="sidebar_name" href=""> 系统设置</a></li>
         {#账号admin 密码123456 #}
         <li><a class="glyphicon glyphicon-home" id="sidebar_name" href="../../admin" target="_blank"> 后台管理</a></li>
-
     </ul>
 </div>
-
-
 {% block content %}{% endblock %}
 
 <script src="{% static 'js/jquery-3.4.1/jquery-3.4.1.min.js' %}"></script>

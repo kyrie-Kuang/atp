@@ -1,6 +1,5 @@
 .content {
     background: rgba(242, 245, 244, 0.94);
-
 }
 
 
@@ -131,4 +130,12 @@
     position: absolute;
     left: 500px;
     color: cadetblue;
+}
+
+.Return {
+    color: cadetblue;
+    font-size: 18px;
+    position: absolute;
+    bottom: 35px;
+    left: 35px;
 }

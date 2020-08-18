@@ -18,22 +18,13 @@ def login(request):
         user_obj = UserInfo.objects.filter(username=username).first()
 
         if user_obj:
-
             if check_password(password, user_obj.password):
                 request.session['user_id'] = user_obj.id
 
-                return redirect('atp:home')
+                return JsonResponse({'code': 200})
             else:
-                data = {
-                    'username_error': '用户名或密码错误'
-                }
-                return render(request, 'account/login.html', context=data)
-
-        else:
-            data = {
-                'username_error': '用户名或密码错误'
-            }
-            return render(request, 'account/login.html', context=data)
+                return JsonResponse({'code': 201})
+        return JsonResponse({'code': 201})
 
 
 # 注册

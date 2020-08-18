@@ -12,10 +12,15 @@ def home(request):
     data = {
         'pro_count': pro_count
     }
-    return render(request, 'manage/home_manage.html',context=data)
+    return render(request, 'manage/home_manage.html', context=data)
 
 
-# 登出
+# 注销
 def logout(request):
     request.session.flush()
     return redirect('atp:login')
+
+
+# Jenkins页面
+def jenkins_manage(request):
+    return render(request, 'manage/jenkins_manage.html')

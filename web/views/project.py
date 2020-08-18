@@ -9,7 +9,7 @@ from web.models import Product
 
 # 产品列表
 def product_manage(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('id')
 
     paginator = Paginator(products, 10)
     # 获取page的值，如果没有，则设置使用默认值1
@@ -35,11 +35,11 @@ def product_add(request):
         product_er = request.POST.get('product_er')
 
         pro_obj = Product.objects.filter(product_name=product_name)
-        if pro_obj.exists():
-            data = {
-                'msg_pro_name': '产品已存在'
-            }
-            return render(request, 'product/product_add.html', context=data)
+
+        if product_name == "":
+            return JsonResponse({'code': 202})
+        elif pro_obj.exists():
+            return JsonResponse({'code': 203})
         else:
             Product.objects.create(
                 product_name=product_name,
@@ -47,12 +47,13 @@ def product_add(request):
                 product_er=product_er,
                 pro_user_id=user_id,
             )
-        return redirect('atp:product_manage')
+            return JsonResponse({'code': 200})
+    return JsonResponse({'code': 201})
 
 
 # 产品删除
 def product_delete(request):
-    product_id = request.GET['product_id']
+    product_id = request.GET.get('product_id')
     try:
         pro_obj = Product.objects.get(id=product_id)
         pro_obj.delete()
@@ -78,12 +79,10 @@ def product_update(request, pro_id):
 
         pro = Product.objects.filter(product_name=product_name)
 
-        if pro.exists() and pro_obj.product_name != product_name:
-            data = {
-                'pro_obj': pro_obj,
-                'msg_pro_name': '产品已存在'
-            }
-            return render(request, 'product/product_update.html', context=data)
+        if product_name == "":
+            return JsonResponse({'code': 202})
+        elif pro.exists() and pro_obj.product_name != product_name:
+            return JsonResponse({'code': 203})
         else:
             Product.objects.filter(id=pro_id).update(
                 product_name=product_name,
@@ -91,7 +90,8 @@ def product_update(request, pro_id):
                 product_er=product_er
             )
 
-            return redirect('atp:product_manage')
+            return JsonResponse({'code': 200})
+    return JsonResponse({'code': 201})
 
 
 # 产品搜索

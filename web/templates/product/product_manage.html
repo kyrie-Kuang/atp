@@ -23,7 +23,6 @@
                     </div>
                 </form>
             </div>
-
             <!--列表-->
             <form method="post" action="{% url 'atp:product_manage' %}">
                 {% csrf_token %}
@@ -59,7 +58,6 @@
                     </tbody>
                 </table>
             </form>
-
             <!--分页-->
             <div id="pager">
                 <nav aria-label="Page navigation">
@@ -109,7 +107,6 @@
                     </ul>
                 </nav>
             </div>
-
         </div>
     </div>
 {% endblock %}

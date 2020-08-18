@@ -9,7 +9,7 @@ from web.models import Apis, Product
 
 # 单一接口列表
 def apis_manage(request):
-    apis_list = Apis.objects.all()
+    apis_list = Apis.objects.all().order_by('id')
 
     paginator = Paginator(apis_list, 10)
     # 获取page的值，如果没有，则设置使用默认值1
@@ -32,9 +32,7 @@ def apis_add(request):
             'pro_names': pro_names,
         }
         return render(request, 'apis/apis_add.html', context=data)
-
     elif request.method == "POST":
-
         api_product = request.POST.get('dropdown')
         api_name = request.POST.get('api_name')
         api_url = request.POST.get('api_url')
@@ -42,6 +40,9 @@ def apis_add(request):
         api_method = request.POST.get('method_check')
         api_result = request.POST.get('api_result')
         api_status = request.POST.get('api_status')
+
+        if api_name == "":
+            return JsonResponse({'code': 202})
 
         Apis.objects.create(
             api_name=api_name,
@@ -52,12 +53,14 @@ def apis_add(request):
             api_status=api_status,
             api_product_id=api_product,
         )
-        return redirect('atp:apis_manage')
+        return JsonResponse({'code': 200})
+    return JsonResponse({'code': 201})
 
 
 # 单一接口删除
 def apis_delete(request):
-    apis_id = request.GET['apis_id']
+    apis_id = request.GET.get('apis_id')
+
     try:
         apis_obj = Apis.objects.get(id=apis_id)
         apis_obj.delete()
@@ -87,6 +90,9 @@ def apis_update(request, apis_id):
         api_result = request.POST.get('api_result')
         api_status = request.POST.get('api_status')
 
+        if api_name == "":
+            return JsonResponse({'code': 202})
+
         Apis.objects.filter(id=apis_id).update(
             api_name=api_name,
             api_url=api_url,
@@ -96,8 +102,8 @@ def apis_update(request, apis_id):
             api_status=api_status,
             api_product_id=api_product
         )
-
-        return redirect('atp:apis_manage')
+        return JsonResponse({'code': 200})
+    return JsonResponse({'code': 201})
 
 
 # 单一接口搜索
