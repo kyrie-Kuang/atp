@@ -125,3 +125,9 @@ class Bug(models.Model):
     bug_creat_er = models.CharField(max_length=200)
     bug_assign = models.CharField(max_length=200)
     create_time = models.DateTimeField(auto_now=True)
+
+
+# 系统设置表
+class Set(models.Model):
+    set_name = models.CharField(max_length=200)
+    set_value = models.CharField(max_length=600)

@@ -1,5 +1,5 @@
 from django.urls import path
-from web.views import account, manage, project, apis, api_test, web_test, app_test, bug
+from web.views import account, manage, project, apis, api_test, web_test, app_test, bug, set_atp, report
 
 urlpatterns = [
     # 登录注册
@@ -10,6 +10,7 @@ urlpatterns = [
     path('home/', manage.home, name='home'),
     path('logout/', manage.logout, name='logout'),
     path('jenkins_manage/', manage.jenkins_manage, name='jenkins_manage'),
+    path('locust_manage/', manage.locust_manage, name='locust_manage'),
 
     # 产品管理
     path('product_manage/', project.product_manage, name='product_manage'),
@@ -67,5 +68,16 @@ urlpatterns = [
     path('bug_delete/', bug.bug_delete, name='bug_delete'),
     path('bug_update/<int:bug_id>/', bug.bug_update, name='bug_update'),
     path('bug_search/', bug.bug_search, name='bug_search'),
+
+    # 报告列表
+    path('report_apis/', report.report_apis, name='report_apis'),
+    path('report_web/', report.report_web, name='report_web'),
+
+    # 系统设置
+    path('set_manage/', set_atp.set_manage, name='set_manage'),
+    path('set_add/', set_atp.set_add, name='set_add'),
+    path('set_delete/', set_atp.set_delete, name='set_delete'),
+    path('set_update/<int:set_id>/', set_atp.set_update, name='set_update'),
+    path('set_user_manage/', set_atp.set_user_manage, name='set_user_manage'),
 
 ]

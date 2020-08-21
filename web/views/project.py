@@ -3,7 +3,7 @@
 '''
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from web.models import Product
 
 

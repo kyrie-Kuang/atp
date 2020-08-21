@@ -24,3 +24,8 @@ def logout(request):
 # Jenkins页面
 def jenkins_manage(request):
     return render(request, 'manage/jenkins_manage.html')
+
+
+# locust页面
+def locust_manage(request):
+    return render(request, 'manage/locust_manage.html')
